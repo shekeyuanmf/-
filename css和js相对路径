@@ -1,0 +1,44 @@
+css和javascript中图片路径的不同
+之前在写前端代码时,在图片路径的设置那里经常会遇到一个问题.比方说,我
+
+(1)在根目录下面新建了个"images"文夹,里面放了张图片top.gif
+
+(2)在根目录下另外新建了两个文件夹"CSS"和"JS"专门用来存放用到的.css文件和.js文件(假设我们用到的为"test.css"和"test.js")
+
+假设在根目录下有个"test.html"文件,里面分别引用了"test.css"以及"test.js"
+
+<link type="text/css" href="CSS/test.css" rel="stylesheet"/>
+
+<script type="text/javascript" src="JS/test.js"></script>
+
+在test.html中有这样一个标签
+
+<div id="top">
+
+<p>Just for test!</p>
+
+</div>
+
+如果这时我要设置id为top的标签的背景图片,在"test.css"里这样写:
+
+#top{ background:url(../images/top.gif); }
+
+在test.js里面这样写:
+
+document.getElementById("top").style.background="images/top.gif";
+
+可以发现两者有明显的不同,被这问题困扰了很久,却一直搞不清楚是什么原因,在网上google了下,终于找到了答案.
+
+html页面中,引用js脚本和css文件的机制是不一样的.
+
+(1)对于js脚本,html是吧脚本加载到页面中一起解析(就跟你的js脚本直接写在这个页面是一样的)
+
+(2)而对css文件,则仅仅是提供一个连接,并不会将其加载到html页面中,如在本例中,html根据链接去css文件中寻找所需要的图片文件
+
+这两者的区别很重要,当我们要引用一个图片时,在js文件中要以引用它的html的路径为准,而在css文件中,要以改css路径为准.
+
+ 
+
+如有错误,欢迎指正.....
+
+参考资料:http://blog.csdn.net/gideal_wang/archive/2009/03/06/3962254.aspx
